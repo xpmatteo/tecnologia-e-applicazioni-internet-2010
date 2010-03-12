@@ -34,14 +34,14 @@ public class PasteTest {
 	
 	@Test
 	public void listsCanBeOfDifferentLength() throws Exception {
-		List<String> a = Arrays.asList("ssss");
-		List<String> b = Arrays.asList("dddd", "eeee");
+		List<String> a = Arrays.asList("a");
+		List<String> b = Arrays.asList("b", "c");
 		
 		List<String> result = new ArrayList();
 		
 		Concatenator concatenator = new Concatenator();
 		concatenator.concatenate(result, a, b);
-		assertEquals(Arrays.asList("ssssdddd", "eeee"), result);
+		assertEquals(Arrays.asList("ab", "c"), result);
 	}
 	
 	http://matteo.vaccari.name/tai
