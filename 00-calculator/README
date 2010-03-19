@@ -1,0 +1,14 @@
+
+== Exercise performed by me in class ==
+
+This is my introductory TDD example.  A demo of the finished application :-) is:
+
+  $ cd bin
+  $ java Main "3 + 4"
+  7
+  $
+
+It's very small, but it shows that it pays to distribute responsibilities: the Parser class parses the input, the Calculator class performs the calculation. 
+
+The payoff of using two objects, as opposed to rolling all functionality into one, is that the add(int, int) method would then be a private method of the Calculator, making it difficult to test.  By splitting responsibilities in two objects, the add(int, int) becomes a public method of a collaborator.
+

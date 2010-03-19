@@ -1,0 +1,13 @@
+
+== Exercise in the lab ==
+
+Write a program similar to the paste(1) Unix command.  The program ought to take two file names on the command line, and produce on standard output a file that is the line-by-line concatenation of the input files.  For instance, if file_a contains the lines "foo" "bar", and file_b contains the line "zork", the output should be the lines "foozork" "bar".
+
+Additional requirements:
+ - support more than two input files 
+ - support a concatenation token, e.g., ", " so that the output of the above example would be "foo, zork" "bar"
+ 
+ 
+== Goal of the exercise ==
+
+Work with TDD.  Test the code with streams in memory, keeping the need to work with real files to the minimum.  Keep dependencies on the file system at the periphery of the code, ideally in the Main class only.
