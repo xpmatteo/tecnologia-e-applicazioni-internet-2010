@@ -5,6 +5,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/compile/servlet-api-2.4.jar" sourcepath="lib/compile/servlet-api-2.4-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/LegoViews"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
