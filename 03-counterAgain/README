@@ -1,0 +1,15 @@
+
+This is again the counter exercise, this time done with a better generation of
+the view, that does not rely on string concatenation (and does not use string
+equality in tests.)
+
+== How to run ==
+
+Execute
+
+ $ script/server.sh
+
+then open browser at http://localhost:8080
+
+There is also a script\server.bat for Windows users, but it's more crude than
+the Unix version.
