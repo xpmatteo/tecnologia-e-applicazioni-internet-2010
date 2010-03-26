@@ -1,19 +1,23 @@
 package it.xpug.counterViews;
 
-import it.xpug.html.HtmlDocument;
+import it.xpug.html.Element;
 import it.xpug.html.TextNode;
 import static it.xpug.html.HtmlHelper.*;
 
 public class Counter {
 
-	private final Integer value;
+	private Integer value;
 
 	public Counter(String value) {
-		this.value = Integer.parseInt(value);
+		try {
+			this.value = Integer.parseInt(value);
+		} catch (NumberFormatException e) {
+			this.value = 0;
+		}
 	}
 
-	public HtmlDocument toHtmlDocument() {
-		HtmlDocument html = html(
+	public Element toHtmlDocument() {
+		Element html = html(
 			head(title("Counter")),
 			body(
 				new HexDisplay(value),

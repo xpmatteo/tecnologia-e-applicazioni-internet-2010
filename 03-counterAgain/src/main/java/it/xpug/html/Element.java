@@ -87,23 +87,6 @@ public class Element extends HtmlDocument {
 		return true;
 	}
 
-	private String startTag() {
-		return makeTag("<%s%s>");
-	}
-
-	private String makeTag(String format) {
-		String attrs = "";
-		for (String name : attributes.keySet()) {
-			String value = attributes.get(name);
-			attrs += String.format(" %s='%s'", name, value);
-		}
-		return String.format(format, name, attrs);
-	}
-
-	private String uniqueTag() {
-		return makeTag("<%s%s />");
-	}
-
 	public Element addAll(HtmlDocument[] contents) {
 		for (HtmlDocument element : contents) {
 			add(element);
@@ -120,6 +103,25 @@ public class Element extends HtmlDocument {
 		return result;
 	}
 
+	public String getAttribute(String attributeName) {
+		return attributes.get(attributeName);
+	}
+
+	public Element findElementById(String identifier) throws ElementNotFoundException {
+		if (attributes.containsKey("id") && attributes.get("id").equals(identifier)) {
+			return this;
+		} else {
+			for (HtmlDocument content : contents) {
+				try {
+					if (content instanceof Element) {
+						return ((Element) content).findElementById(identifier);
+					}
+				} catch (Exception ignored) {}
+			}
+			throw new ElementNotFoundException(String.format("element with id '%s'", identifier));
+		}
+	}
+
 	@Override
 	public Element findLinkByLabel(String string) throws ElementNotFoundException {
 		if (name.equals("a") && contentsAsText().equals(string)) {
@@ -134,7 +136,20 @@ public class Element extends HtmlDocument {
 		}
 	}
 
-	public String getAttribute(String attributeName) {
-		return attributes.get(attributeName);
+	private String startTag() {
+		return makeTag("<%s%s>");
+	}
+
+	private String makeTag(String format) {
+		String attrs = "";
+		for (String name : attributes.keySet()) {
+			String value = attributes.get(name);
+			attrs += String.format(" %s='%s'", name, value);
+		}
+		return String.format(format, name, attrs);
+	}
+
+	private String uniqueTag() {
+		return makeTag("<%s%s />");
 	}
 }

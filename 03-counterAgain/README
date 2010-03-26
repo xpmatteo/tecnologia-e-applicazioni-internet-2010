@@ -3,6 +3,12 @@ This is again the counter exercise, this time done with a better generation of
 the view, that does not rely on string concatenation (and does not use string
 equality in tests.)
 
+Note: there is (at least one) failing test.  Make it work.
+
+There is some duplication, expecially in the two findBy... methods. Find a way
+to eliminate the duplication.
+
+
 == How to run ==
 
 Execute
