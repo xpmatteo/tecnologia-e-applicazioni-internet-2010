@@ -23,9 +23,6 @@ public class CounterTest {
 	
 	@Test
 	public void containsDisplay() throws Exception {
-		Counter counter = new Counter("255");
-		Element document = counter.toHtmlDocument();
-	
 		Element display = document.findElementById("display");
 		assertEquals("Display shows wrong value", "0xff", display.contentsAsText());
 	}
