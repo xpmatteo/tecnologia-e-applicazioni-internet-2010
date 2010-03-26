@@ -8,7 +8,11 @@ This is my introductory TDD example.  A demo of the finished application :-) is:
   7
   $
 
-It's very small, but it shows that it pays to distribute responsibilities: the Parser class parses the input, the Calculator class performs the calculation. 
+It's very small, but it shows that it pays to distribute responsibilities: the
+Parser class parses the input, the Calculator class performs the calculation.
 
-The payoff of using two objects, as opposed to rolling all functionality into one, is that the add(int, int) method would then be a private method of the Calculator, making it difficult to test.  By splitting responsibilities in two objects, the add(int, int) becomes a public method of a collaborator.
+The payoff of using two objects, as opposed to rolling all functionality into
+one, is that the add(int, int) method would then be a private method of the
+Calculator, making it difficult to test. By splitting responsibilities in two
+objects, the add(int, int) becomes a public method of a collaborator.
 

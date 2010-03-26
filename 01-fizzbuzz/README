@@ -1,9 +1,17 @@
 
 == Exercise performed by me in class ==
 
-This is a very simple kata [0].  The point is to show how to apply the Open-Closed Principle.  The idea is that every new requirement should be met by modifying the "factory" code and adding a new class, or reconfiguring an existing one.  
+This is a very simple kata [0]. The point is to show how to apply the
+Open-Closed Principle. The idea is that every new requirement should be met by
+modifying the "factory" code and adding a new class, or reconfiguring an
+existing one.
 
-In order to let the students see the usefulness of the OCP, I added a new requirement to the rules of the game: "for multiples of 7, say 'Bang'."  That includes all combinations: for multiples of 3 and 7, say "FizzBang", etc.  It's easy to see that each new requirement of this kind produces an explosion in the number of cases.  If the only tool in your toolchest is a chain of IFs, you are not going to be able to keep up with changing requirements.
+In order to let the students see the usefulness of the OCP, I added a new
+requirement to the rules of the game: "for multiples of 7, say 'Bang'." That
+includes all combinations: for multiples of 3 and 7, say "FizzBang", etc. It's
+easy to see that each new requirement of this kind produces an explosion in
+the number of cases. If the only tool in your toolchest is a chain of IFs, you
+are not going to be able to keep up with changing requirements.
 
 
 [0] http://en.wikipedia.org/wiki/Bizz_buzz

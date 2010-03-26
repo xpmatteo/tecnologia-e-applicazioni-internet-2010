@@ -3,21 +3,30 @@
 
 The application should show a text field, where the user can enter a number.
 
-There should also be two buttons, one labelled "To Dec" and the other labelled "To Hex".  Only one of the two buttons should be enabled at all times.  
+There should also be two buttons, one labelled "To Dec" and the other labelled
+"To Hex". Only one of the two buttons should be enabled at all times.
 
 Scenario: 
+ 
  - The user opens the application.  The text field shows "0".  "To Hex" is enabled.  "To Dec" is not enabled.
+
  - The user enters 16 and clicks "To Hex"
- - The application shows "10" in the text field.  "To Dec" is enabled, "To Hex" is disabled.
+
+ - The application shows "10" in the text field. "To Dec" is enabled, "To
+   Hex" is disabled.
+
  - the user enters FF in the text field and clicks "To Dec".
+ 
  - The application shows 255 in the text field.  "To Hex" is enabled.
 
-A button may be "disabled" by rendering its label as simple text, instead of a button.
+A button may be "disabled" by rendering its label as simple text, instead of a
+button.
 
 
 == Note ==
 
-This exercise should be done in TDD, with a component-based design similar to the one in the ../02-counter application.
+This exercise should be done in TDD, with a component-based design similar to
+the one in the ../02-counter application.
 
 
 

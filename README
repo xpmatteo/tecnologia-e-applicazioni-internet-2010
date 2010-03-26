@@ -1,7 +1,13 @@
 
-This is a collection of small katas for my Internet Technology and Application course [0].  Katas are grouped by lesson.  Some were performed by me in class, others contain just starting points for the student's lab work.
+This is a collection of small katas for my Internet Technology and Application
+course [0]. Katas are grouped by lesson. Some were performed by me in class,
+others contain just starting points for the student's lab work.
 
-The objective is to develop a nice sense of TDD and object design.  I try to focus on objects and simplicity.  Therefore I will try to use as little third-party technology as possible.  No HtmlUnit, or HttpUnit, or (gasp!) Selenium.  (By the way, I like both HtmlUnit and HttpUnit, but I'm exploring how far you can go without using them.  I dislike Selenium.)
+The objective is to develop a nice sense of TDD and object design. I try to
+focus on objects and simplicity. Therefore I will try to use as little
+third-party technology as possible. No HtmlUnit, or HttpUnit, or (gasp!)
+Selenium. (By the way, I like both HtmlUnit and HttpUnit, but I'm exploring
+how far you can go without using them. I dislike Selenium.)
 
 I will write READMEs in English.
 

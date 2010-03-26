@@ -1,9 +1,14 @@
 
 == Exercise performed by me in class ==
 
-This is a simple kata inspired by the Counter example from the Seaside documentation [0].  This very small application shows a counter that you can increment or decrement.
+This is a simple kata inspired by the Counter example from the Seaside
+documentation [0]. This very small application shows a counter that you can
+increment or decrement.
 
-The point of all this is to show how to unit-test servlet-based code.  The pattern is similar to the Humble Object pattern by Michael Feathers [1], the Ports and Adapters architecture by Alistair Cockburn [2], and expecially the post "Interfacing with hard-to-test third-party code" by Mišco Hevery [3].
+The point of all this is to show how to unit-test servlet-based code. The
+pattern is similar to the Humble Object pattern by Michael Feathers [1], the
+Ports and Adapters architecture by Alistair Cockburn [2], and expecially the
+post "Interfacing with hard-to-test third-party code" by Mišco Hevery [3].
 
 [0] http://www.seaside.st/about/examples/counter
 [1] http://www.objectmentor.com/resources/articles/TheHumbleDialogBox.pdf
