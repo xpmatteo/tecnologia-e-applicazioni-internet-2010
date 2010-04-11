@@ -41,6 +41,22 @@ public class HtmlHelper {
 	public static Element html(Element ... elements) {
 		return new Element("html").addAll(elements) ;
 	}
+	
+	public static Element table(Element ... elements) {
+		return elementWithContents("table", elements);
+	}
+
+	public static Element row(Element ... elements) {
+		return elementWithContents("tr", elements);
+	}
+
+	public static Element cell(Element ... elements) {
+		return elementWithContents("td", elements);
+	}
+
+	public static Element tableHeader(Element ... elements) {
+		return elementWithContents("th", elements);
+	}
 
 	private static Element elementWithContents(String name, HtmlDocument ... contents) {
 		return new Element(name).addAll(contents) ;

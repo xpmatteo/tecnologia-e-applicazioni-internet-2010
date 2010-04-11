@@ -40,16 +40,23 @@ public class Element extends HtmlDocument {
 		}
 	}
 
+	public Element with(String attributeName, String attributeValue) {
+		this.attributes .put(attributeName, attributeValue);
+		return this;
+	}
+
 	public Element add(HtmlDocument content) {
 		contents.add(content);
 		return this;
 	}
 
-	public Element with(String attributeName, String attributeValue) {
-		this.attributes .put(attributeName, attributeValue);
+	public Element addAll(HtmlDocument[] contents) {
+		for (HtmlDocument element : contents) {
+			add(element);
+		}
 		return this;
 	}
-		
+
 	@Override
 	public String toString() {
 		StringWriter writer = new StringWriter();
@@ -85,13 +92,6 @@ public class Element extends HtmlDocument {
 		if (!name.equals(other.name))
 			return false;
 		return true;
-	}
-
-	public Element addAll(HtmlDocument[] contents) {
-		for (HtmlDocument element : contents) {
-			add(element);
-		}
-		return this;
 	}
 
 	@Override
