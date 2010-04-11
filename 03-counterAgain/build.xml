@@ -11,6 +11,7 @@
     <property name="test.lib.dir"   location="lib/test" />
     <property name="war.file"       location="${build.dir}/counterViews.war"/>
     <property name="config.dir"     location="config" />
+    <property name="legoviews.dir"  location="../LegoViews" />
 
     <path id="project.classpath">
         <pathelement location="${build.prod.dir}" />
@@ -29,6 +30,7 @@
     <target name="compile" depends="prepare">
         <javac source="1.5" target="1.5" destdir="${build.prod.dir}" debug="true" encoding="utf-8">
             <src path="${src.dir}" />
+            <src path="${legoviews.dir}/src" />
             <classpath refid="project.classpath" />
         </javac>
     </target>
@@ -36,6 +38,7 @@
     <target name="compile-tests" depends="compile">
         <javac source="1.5" target="1.5" destdir="${build.test.dir}" encoding="utf-8">
             <src path="${test.dir}" />
+            <src path="${legoviews.dir}/test" />
             <classpath refid="project.classpath" />
         </javac>
     </target>
