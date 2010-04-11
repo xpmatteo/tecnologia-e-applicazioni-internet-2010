@@ -1,0 +1,10 @@
+
+== How to run ==
+
+Execute
+
+ $ script/server.sh
+
+then open browser at http://localhost:8080
+
+
