@@ -6,7 +6,7 @@ import java.io.StringWriter;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
+import static java.util.Arrays.*;
 
 public class HtmlDocumentTest {
 
@@ -74,16 +74,6 @@ public class HtmlDocumentTest {
 		assertNotEquals(element, differentContent);
 	}
 	
-	private void assertNotEquals(Object a, Object b) {
-		assertFalse(a.equals(b));
-	}
-
-	private void assertRenders(String expected, HtmlDocument html) throws IOException {
-		StringWriter writer = new StringWriter();
-		html.renderOn(writer);
-		assertEquals(expected, writer.toString());
-	}
-	
 	@Test
 	public void returnsATextRepresentationOfContents() throws Exception {
 		HtmlDocument textNode = new TextNode("pippo");
@@ -112,6 +102,25 @@ public class HtmlDocumentTest {
 	public void contentsOfNestedElements() throws Exception {
 		Element div = new Element("div").add(new Element("p").add(new TextNode("hello")));
 		assertEquals("hello", div.contentsAsText());
+	}
+	
+	@Test
+	public void returnsItsContents() throws Exception {
+		Element twoChildren = new Element("p")
+			.add(new TextNode("a"))
+			.add(new Element("em"));
+		assertEquals(asList(new TextNode("a"), new Element("em")), twoChildren.getContents());
+		assertEquals(asList(new Element("em")), twoChildren.getElements());
+	}
+	
+	private void assertNotEquals(Object a, Object b) {
+		assertFalse(a.equals(b));
+	}
+
+	private void assertRenders(String expected, HtmlDocument html) throws IOException {
+		StringWriter writer = new StringWriter();
+		html.renderOn(writer);
+		assertEquals(expected, writer.toString());
 	}
 
 }

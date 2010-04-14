@@ -1,52 +1,48 @@
 package it.xpug.courses;
+import it.xpug.html.Element;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.Assert.assertEquals;
 
-import winstone.Launcher;
-import winstone.Logger;
-
-import static org.junit.Assert.*;
 
 
 public class CourseListTest {
+	private final CourseList list = new CourseList();
+	private final Course course0 = new Course("Course 0");
+	private final Course course1 = new Course("Course 1");
 
-	private static final String WAR_PATHNAME = "target/courses.war";
-
-	@BeforeClass
-	public static void setUp() throws Exception {
-		buildWar();
-		startServer();
+	@Before
+	public void setUp() throws Exception {
+		list.add(course0);
+		list.add(course1);
 	}
-
+	
 	@Test
-	public void run() throws Exception {
-		WebClient client = new WebClient();
-		HtmlPage page = client.getPage("http://localhost:8123/");
-		assertEquals("pippo", page.getTitleText());
+	public void containsAListOfCourses() throws Exception {
+		assertEquals(2, list.size());
+	}
+	
+	@Test
+	public void showsATableOfCourses() throws Exception {
+		Element html = list.toHtml();
+		assertEquals("courses", html.getAttribute("id"));
+		assertEquals("table", html.getName());
+		
+		List<Element> rows = html.getElements();
+		assertEquals(2, rows.size());
+		
+		assertRenders(course0, rows.get(0));
+		assertRenders(course1, rows.get(1));
 	}
 
-	private static void startServer() throws IOException {
-		Map<String, String> args = new HashMap();
-		args.put("debug", "" + Logger.ERROR);
-//		Launcher.initLogger(args);
-		args.put("httpPort", "8123");
-		args.put("warfile", WAR_PATHNAME); 
-		new Launcher(args);
+	private void assertRenders(Course course, Element element) {
+		assertEquals(course.toTableRow(), element);
 	}
+	
 
-	private static void buildWar() throws IOException, InterruptedException {
-		Process process = Runtime.getRuntime().exec("ant war");
-		process.waitFor();
-		assertEquals(0, process.exitValue());
-	}
+
 }

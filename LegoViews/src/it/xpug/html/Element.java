@@ -107,6 +107,24 @@ public class Element extends HtmlDocument {
 		return attributes.get(attributeName);
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public List<HtmlDocument> getContents() {
+		return contents;
+	}
+
+	public List<Element> getElements() {
+		List<Element> result = new ArrayList();
+		for (HtmlDocument doc : contents) {
+			if (doc instanceof Element) {
+				result.add((Element) doc);
+			}
+		}
+		return result;
+	}
+
 	public Element findElementById(String identifier) throws ElementNotFoundException {
 		if (attributes.containsKey("id") && attributes.get("id").equals(identifier)) {
 			return this;

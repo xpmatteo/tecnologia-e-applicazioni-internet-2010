@@ -30,12 +30,12 @@ public class HtmlHelper {
 		return new Element("head").addAll(elements);
 	}
 
-	public static Element image(String source) {
-		return new Element("img").with("src", source).with("alt", "");
-	}
-
 	public static Element body(HtmlDocument ... elements) {
 		return elementWithContents("body", elements);
+	}
+
+	public static Element image(String source) {
+		return new Element("img").with("src", source).with("alt", "");
 	}
 
 	public static Element html(Element ... elements) {
@@ -52,6 +52,14 @@ public class HtmlHelper {
 
 	public static Element cell(Element ... elements) {
 		return elementWithContents("td", elements);
+	}
+
+	public static Element cell(String text) {
+		return elementWithText("td", text);
+	}
+
+	public static Element h1(String text) {
+		return elementWithText("h1", text);
 	}
 
 	public static Element tableHeader(Element ... elements) {
