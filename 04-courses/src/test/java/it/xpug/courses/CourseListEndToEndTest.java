@@ -3,6 +3,7 @@ package it.xpug.courses;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
@@ -11,6 +12,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 
@@ -25,6 +29,7 @@ public class CourseListEndToEndTest {
 	private static final String WAR_PATHNAME = "target/courses.war";
 	private WebClient client;
 	private HtmlPage page;
+	private HtmlForm htmlForm;
 
 	@BeforeClass
 	public static void buildAndStartServer() throws Exception {
@@ -37,15 +42,20 @@ public class CourseListEndToEndTest {
 		client = new WebClient();
 	}
 
-	@Test
-	public void run() throws Exception {
+	@Test@Ignore
+	public void insertACourse() throws Exception {
 		visit("/courses");
-		assertEquals(2, numberOfCoursesListed());
+		assertEquals("number of courses listed", 0, numberOfCoursesListed());
 		clickOnNewCourseButton();
 		insertCourseTitle("Course Title");
 		insertCourseDescription("A Description");
 		submitCourseForm();
 		assertEquals(1, numberOfCoursesListed());
+	}
+	
+	private void clickOnNewCourseButton() throws IOException {
+		HtmlAnchor link = page.getAnchorByText("New Course");
+		page = link.click();
 	}
 	
 	private void insertCourseDescription(String string) {
@@ -56,12 +66,12 @@ public class CourseListEndToEndTest {
 		throw new RuntimeException("Not yet implemented!");
 	}
 
-	private void insertCourseTitle(String string) {
-		throw new RuntimeException("Not yet implemented!");
-	}
-
-	private void clickOnNewCourseButton() {
-		throw new RuntimeException("Not yet implemented!");
+	private void insertCourseTitle(String newTitle) {
+		List<HtmlForm> forms = page.getForms();
+		assertTrue("new course form not found", forms.size() > 0);
+		htmlForm = forms.get(0);
+		HtmlInput courseTitleInput = htmlForm.getInputByName("title");
+		courseTitleInput.setValueAttribute(newTitle);
 	}
 
 	private int numberOfCoursesListed() {

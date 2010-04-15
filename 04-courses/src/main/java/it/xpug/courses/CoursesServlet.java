@@ -1,6 +1,7 @@
 package it.xpug.courses;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +12,17 @@ public class CoursesServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CourseList list = new CourseList();
-		list.add(new Course("Cinema 2.0"));
-		list.add(new Course("Fumetti 3.0"));
-		CourseListPage page = new CourseListPage(list);
-		page.toHtml().renderOn(response.getWriter());
+		String context = request.getContextPath() + request.getServletPath();
+		PrintWriter writer = response.getWriter();
+		String pathInfo = request.getPathInfo();
+		if (pathInfo.equals("/new")) {
+			NewCourseForm form = new NewCourseForm();
+			form.toHtml(context).renderOn(writer);
+		} else {
+			CourseList list = new CourseList();
+			CourseListPage page = new CourseListPage(list);			
+			page.toHtml(context).renderOn(writer);
+		}
 	}
 	
 

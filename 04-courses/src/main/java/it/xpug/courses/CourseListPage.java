@@ -11,12 +11,13 @@ public class CourseListPage {
 		this.list = list;
 	}
 
-	public Element toHtml() {
+	public Element toHtml(String context) {
 		return html(
 				head(title("Courses list")),
 				body(
 					h1("Courses"),
-					list.toHtml()
+					list.toHtml(),
+					link(context, "new", "New Course")
 				));
 	}
 }
