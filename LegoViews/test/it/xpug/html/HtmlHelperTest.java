@@ -19,6 +19,12 @@ public class HtmlHelperTest {
 	}
 	
 	@Test
+	public void buildsFullUrlFromServletContext() throws Exception {
+		Element link = link("/pippo", "pluto", "a link");
+		assertEquals("/pippo/pluto", link.getAttribute("href"));
+	}
+	
+	@Test
 	public void testname() throws Exception {
 	    HtmlDocument html = html(
 	        head(

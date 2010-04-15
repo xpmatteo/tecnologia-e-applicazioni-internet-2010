@@ -1,5 +1,9 @@
 package it.xpug.html;
 
+import org.w3c.dom.html.HTMLElement;
+
+import it.xpug.html.Element.EmptyMode;
+
 public class HtmlHelper {
 
 	public static Element paragraph() {
@@ -22,10 +26,14 @@ public class HtmlHelper {
 		return elementWithText("style", rules).with("type", "text/css");
 	}
 
-	public static HtmlDocument link(String href, String label) {
+	public static Element link(String href, String label) {
 		return elementWithText("a", label).with("href", href);
 	}
 	
+	public static Element link(String context, String href, String label) {
+		return elementWithText("a", label).with("href", url(context, href));
+	}
+
 	public static Element head(HtmlDocument ... elements) {
 		return new Element("head").addAll(elements);
 	}
@@ -64,6 +72,30 @@ public class HtmlHelper {
 
 	public static Element tableHeader(Element ... elements) {
 		return elementWithContents("th", elements);
+	}
+	
+	public static Element form(String context, String action, String method, HtmlDocument ... contents) {
+		return new Element("form").with("action", url(context, action)).with("method", method).addAll(contents);
+	}
+
+	public static Element submitButton(String label) {
+		return new Element("input", EmptyMode.SINGLE_TAG).with("type", "submit").with("value", label);
+	}
+
+	public static Element textField(String name) {
+		return new Element("input", EmptyMode.SINGLE_TAG).with("type", "text").with("name", name);
+	}
+	
+	public static TextNode text(String text) {
+		return new TextNode(text);
+	}
+	
+	public static Element newLine() {
+		return new Element("br", EmptyMode.SINGLE_TAG);
+	}
+	
+	private static String url(String context, String href) {
+		return context + "/" + href;
 	}
 
 	private static Element elementWithContents(String name, HtmlDocument ... contents) {
