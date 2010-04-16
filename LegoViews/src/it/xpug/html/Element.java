@@ -140,8 +140,11 @@ public class Element extends HtmlDocument {
 	}
 
 	public boolean matchesXPath(String xpath) {
-		NodeList nodes = getNodeList(xpath);
-		return nodes.getLength() > 0;
+		return numberOfXPathMatches(xpath) > 0;
+	}
+
+	public int numberOfXPathMatches(String xpath) {
+		return getNodeList(xpath).getLength();
 	}
 
 	public String textContentByXPath(String xpath) throws ElementNotFoundException {

@@ -24,4 +24,12 @@ public class HtmlDocumentXPathTest {
 		element.textContentByXPath("//blabla");
 	}
 	
+	@Test
+	public void returnsNumberOfMatches() throws Exception {
+		element = div(paragraph("a"), paragraph("b"));
+		assertEquals(1, element.numberOfXPathMatches("/div"));
+		assertEquals(2, element.numberOfXPathMatches("//p"));
+		assertEquals(0, element.numberOfXPathMatches("/zot"));
+	}
+	
 }

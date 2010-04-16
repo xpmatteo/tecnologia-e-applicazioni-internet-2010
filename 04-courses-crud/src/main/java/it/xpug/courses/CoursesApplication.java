@@ -29,7 +29,9 @@ public class CoursesApplication {
 		return html(
 			head(title("List all courses")),
 			body(h1("List all courses")),
-			table
+			paragraph("These are our courses"),
+			table,
+			link("new", "New Course")
 			);
 	}
 

@@ -17,14 +17,21 @@ public class CoursesApplicationTest {
 
 	@Test
 	public void createRedirectsToListPage() throws Exception {		
-		String redirect = app.doPost("/create", param("title", "titolo"));
+		Map<String, String[]> params = new HashMap();
+		params.put("title", new String[] { "titolo" });
+	
+		String redirect = app.doPost("/create", params);
+		
 		assertEquals("/list", redirect);
 	}
 	
 	@Test
 	public void createSavesANewCourseToDatabase() throws Exception {
 		long countBefore = courses.count();
-		app.doPost("/create", param("title", "titolo"));
+		Map<String, String[]> params = new HashMap();
+		params.put("title", new String[] { "titolo" });
+		
+		app.doPost("/create", params);
 		assertEquals("number of courses after create", countBefore + 1, courses.count());
 		assertEquals(new Course("titolo"), courses.getLast());
 	}
@@ -38,16 +45,13 @@ public class CoursesApplicationTest {
 	public void returnsAListOfCOursesInList() throws Exception {
 		courses.create("primo");
 		courses.create("secondo");
+		
 		Element html = app.doGet("/list");
+		
 		assertTrue("contains head and title", html.matchesXPath("/html/head/title"));
 		assertTrue("contains body and heading", html.matchesXPath("/html/body/h1"));
 		assertTrue("contains a table of courses", html.matchesXPath("//table[@id='courses']"));
-	}
-
-	private Map<String, String[]> param(String key, String value) {
-		Map<String, String[]> params = new HashMap<String, String[]>();
-		params.put(key, new String[] { value });
-		return params;
+		assertEquals("number of rows in table", 2, html.numberOfXPathMatches("//table[@id='courses']/tr"));
 	}
 	
 	
