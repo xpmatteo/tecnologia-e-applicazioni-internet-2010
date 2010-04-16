@@ -1,7 +1,5 @@
 package it.xpug.html;
 
-import org.w3c.dom.html.HTMLElement;
-
 import it.xpug.html.Element.EmptyMode;
 
 public class HtmlHelper {
