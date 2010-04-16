@@ -1,0 +1,48 @@
+
+== About ==
+
+This is an exercise we did in class. It is a starting point for an application
+to manage public training courses, with publication of course calendars,
+enrolling into courses from the web, and so on.
+
+For a start, we do a simple CRUD for courses. In this first version, we don't
+have a real database; we can demonstrate the application working with a fake
+in-memory database. The data are not persistent, but it's enough to
+demonstrate the functionality to our customers.
+
+The first user story is inserting a new course.  The full acceptance test would work like this:
+
+ 0. Open the application at http://localhost:8080/
+ 1. The application shows 0 courses
+ 2. Click on "New Course"; the app shows a form.
+ 3. Enter the title and description of the course, and click "OK"
+ 4. The application redirects to the course listing page
+ 5. There is now a course with the given title and description.
+
+What works: 
+ - Courses have a title (but not the description)
+ - the listing page works
+ - you can simulate step 3 with an offline form, provided here in file form.html
+ - steps 4 and 5 work
+ 
+== Exercise ==
+
+a) Complete the first scenario.
+
+b) Add an "edit" link to every row in the listing, that allows the user to change the course details.
+
+ 
+== Points to ponder ==
+
+ + How much of the html pages can you develop with tests, and how much you should develop by visual feedback?
+ + How to deal with the contextPath and servletPath?  Do you handle them in the servlet or in the Application object?
+
+== How to run ==
+
+Execute
+
+ $ script/server.sh
+
+then open browser at http://localhost:8080
+
+
