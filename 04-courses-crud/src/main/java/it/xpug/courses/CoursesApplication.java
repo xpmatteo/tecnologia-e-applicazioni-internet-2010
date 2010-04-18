@@ -16,7 +16,7 @@ public class CoursesApplication {
 	public String doPost(String string, Map<String, String[]> params) {
 		String[] title = params.get("title");
 		if (null == title) throw new IllegalArgumentException("no title");
-		courses.create(title[0]);
+		courses.create(new Course(title[0]));
 		return "/list";
 	}
 

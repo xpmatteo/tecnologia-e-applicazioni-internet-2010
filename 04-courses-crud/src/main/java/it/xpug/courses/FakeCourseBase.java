@@ -11,8 +11,8 @@ public class FakeCourseBase {
 		return courses.size();
 	}
 
-	public void create(String title) {
-		courses.add(new Course(title));
+	public void create(Course course) {
+		courses.add(course);
 	}
 
 	public Course getLast() {

@@ -43,8 +43,8 @@ public class CoursesApplicationTest {
 	
 	@Test
 	public void returnsAListOfCOursesInList() throws Exception {
-		courses.create("primo");
-		courses.create("secondo");
+		courses.create(new Course("primo"));
+		courses.create(new Course("secondo"));
 		
 		Element html = app.doGet("/list");
 		
@@ -53,6 +53,4 @@ public class CoursesApplicationTest {
 		assertTrue("contains a table of courses", html.matchesXPath("//table[@id='courses']"));
 		assertEquals("number of rows in table", 2, html.numberOfXPathMatches("//table[@id='courses']/tr"));
 	}
-	
-	
 }
