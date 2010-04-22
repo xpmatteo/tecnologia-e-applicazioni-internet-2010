@@ -21,26 +21,26 @@ public class HtmlDocumentTest {
 		Element paragraph = new Element("p");
 		paragraph.add(new TextNode("ciao "))
 			.add(new Element("em").add(new TextNode("ciao")));
-		assertRenders("<p>ciao <em>ciao</em></p>", paragraph);
+		assertRenders("\n<p>ciao \n<em>ciao</em>\n</p>\n", paragraph);
 	}
 	
 	@Test
 	public void attributes() throws Exception {
 		Element form = new Element("form");
 		form.with("method", "get").with("action", ".");
-		assertRenders("<form action='.' method='get'></form>", form);
+		assertRenders("\n<form action='.' method='get'></form>\n", form);
 	}
 
 	@Test
 	public void someEmptyElementsAreRenderedWithASingleTag() throws Exception {
-		assertRenders("<p></p>", new Element("p"));
-		assertRenders("<br />", new Element("br", Element.EmptyMode.SINGLE_TAG));
+		assertRenders("\n<p></p>\n", new Element("p"));
+		assertRenders("\n<br />", new Element("br", Element.EmptyMode.SINGLE_TAG));
 		
 		Element withAttribute = new Element("input", Element.EmptyMode.SINGLE_TAG).with("type", "text");
-		assertRenders("<input type='text' />", withAttribute);
+		assertRenders("\n<input type='text' />", withAttribute);
 		
 		Element nonEmpty = new Element("x", Element.EmptyMode.SINGLE_TAG).add(new TextNode("foo"));
-		assertRenders("<x>foo</x>", nonEmpty);
+		assertRenders("\n<x>foo</x>\n", nonEmpty);
 	}
 	
 	@Test

@@ -64,7 +64,7 @@ public class Element extends HtmlDocument {
 			for (HtmlDocument node : contents) {
 				node.renderOn(writer);
 			}
-			writer.write(String.format("</%s>", name));
+			writer.write(endTag());
 		}
 	}
 
@@ -149,7 +149,7 @@ public class Element extends HtmlDocument {
 
 	public String textContentByXPath(String xpath) throws ElementNotFoundException {
 		Node node = getNode(xpath);
-		return node.getTextContent();
+		return node.getTextContent().trim();
 	}
 
 	@Override
@@ -202,9 +202,17 @@ public class Element extends HtmlDocument {
     }
 
 	private String startTag() {
-		return makeTag("<%s%s>");
+		return makeTag("\n<%s%s>");
 	}
 
+	private String endTag() {
+		return String.format("</%s>\n", name);
+	}
+
+	private String uniqueTag() {
+		return makeTag("\n<%s%s />");
+	}
+	
 	private String makeTag(String format) {
 		String attrs = "";
 		for (String name : attributes.keySet()) {
@@ -212,10 +220,6 @@ public class Element extends HtmlDocument {
 			attrs += String.format(" %s='%s'", name, value);
 		}
 		return String.format(format, name, attrs);
-	}
-
-	private String uniqueTag() {
-		return makeTag("<%s%s />");
 	}
 
 	private Node getNode(String xpath) throws ElementNotFoundException {
