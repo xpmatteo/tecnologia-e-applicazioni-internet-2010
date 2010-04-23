@@ -1,0 +1,41 @@
+
+== About ==
+
+This is a rewrite of the exercise of last class.  We do less TDD and more open exploration of how to get the most expressive and clean code we can.
+
+
+What works: 
+ - You can List and Create courses
+ - You can edit the course, but saving changes won't work.
+ 
+== Exercise ==
+
+a) Fix the error in editing courses
+
+b) Add a "delete" link to the courses listing
+
+c) Add a common layout.  The layout should be defined in a single place and applied to all pages.  The layout should use the /stylesheets/style.css file that is found in src/main/webapp
+
+d) (Advanced.)  A course is offered in many editions.  
+   * Add a CRUD for creating and editing the editions of a course.  An edition has a time and a place.
+   * Add an /app/calendar page that shows all future editions of courses.
+
+
+
+ 
+== Points to ponder ==
+
+ + Can you see duplication in the code?  Can you think of a way to eliminate it?
+
+ + How do you feel with respect to the Course object, which is a sad object with only getters and setters and no behaviour?  Can you imagine a way to assign to it some responsibilities and behaviour?
+
+
+== How to run ==
+
+Execute
+
+ $ script/server.sh
+
+then open browser at http://localhost:8080
+
+

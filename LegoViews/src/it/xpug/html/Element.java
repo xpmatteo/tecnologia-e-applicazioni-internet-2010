@@ -16,6 +16,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -141,6 +142,24 @@ public class Element extends HtmlDocument {
 
 	public boolean matchesXPath(String xpath) {
 		return numberOfXPathMatches(xpath) > 0;
+	}
+
+	public Element findByXPath(String xpath) throws ElementNotFoundException {
+		Node node = getNode(xpath);
+		return fromNode(node);
+	}
+
+	private static Element fromNode(Node node) {
+		Element result = new Element(node.getLocalName());
+		result.add(new TextNode(node.getTextContent()));
+		NamedNodeMap nodeAttributes = node.getAttributes();
+		for (int i=0; i<nodeAttributes.getLength(); i++) {
+			Node item = nodeAttributes.item(i);
+			String attributeName = item.getLocalName();
+			String attributeValue = item.getNodeValue();
+			result.with(attributeName, attributeValue);
+		}
+		return result;
 	}
 
 	public int numberOfXPathMatches(String xpath) {

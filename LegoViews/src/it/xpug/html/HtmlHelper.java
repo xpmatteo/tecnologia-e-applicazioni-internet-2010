@@ -105,6 +105,10 @@ public class HtmlHelper {
 		return new Element("input", EmptyMode.SINGLE_TAG).with("type", "text").with("name", name).with("value", value);
 	}
 	
+	public static Element hiddenField(String name, String value) {
+		return new Element("input", EmptyMode.SINGLE_TAG).with("type", "hidden").with("name", name).with("value", value);
+	}
+	
 	public static TextNode text(String text) {
 		return new TextNode(text);
 	}

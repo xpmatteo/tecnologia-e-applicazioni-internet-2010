@@ -31,5 +31,14 @@ public class HtmlDocumentXPathTest {
 		assertEquals(2, element.numberOfXPathMatches("//p"));
 		assertEquals(0, element.numberOfXPathMatches("/zot"));
 	}
-	
+
+	@Test
+	public void findElementByXPath() throws Exception {
+		Element element = div(paragraph("ciao").with("id", "pippo"));
+		Element found = element.findByXPath("//p");
+		
+		assertEquals("p", found.getName());
+		assertEquals("pippo", found.getAttribute("id"));
+		assertEquals("ciao", found.contentsAsText());
+	}
 }
