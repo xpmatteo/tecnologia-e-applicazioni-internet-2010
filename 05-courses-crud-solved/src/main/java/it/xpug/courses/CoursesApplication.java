@@ -1,5 +1,7 @@
 package it.xpug.courses;
 
+import it.xpug.html.Element;
+
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +54,9 @@ public class CoursesApplication {
 	}
 	
 	private void renderHtml(PageComponent component) throws IOException {
-		component.toHtml().renderOn(response.getWriter());
+		Layout layout = new Layout(component);
+		Element html = layout.toHtml();
+		html.renderOn(response.getWriter());
 	}
 
 	private void redirect(String path) throws IOException {

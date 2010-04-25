@@ -82,7 +82,19 @@ public class HtmlHelper {
 	}
 
 	public static Element h1(String text) {
-		return elementWithText("h1", text);
+		return heading(text, 1);
+	}
+
+	public static Element h2(String text) {
+		return heading(text, 2);
+	}
+
+	public static Element h3(String text) {
+		return heading(text, 3);
+	}
+
+	private static Element heading(String text, int level) {
+		return elementWithText("h" + level, text);
 	}
 
 	public static Element tableHeader(Element ... elements) {

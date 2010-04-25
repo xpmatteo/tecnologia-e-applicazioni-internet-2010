@@ -1,16 +1,7 @@
 package it.xpug.courses;
 
-import static it.xpug.html.HtmlHelper.body;
-import static it.xpug.html.HtmlHelper.cell;
-import static it.xpug.html.HtmlHelper.h1;
-import static it.xpug.html.HtmlHelper.head;
-import static it.xpug.html.HtmlHelper.html;
-import static it.xpug.html.HtmlHelper.link;
-import static it.xpug.html.HtmlHelper.paragraph;
-import static it.xpug.html.HtmlHelper.row;
-import static it.xpug.html.HtmlHelper.table;
-import static it.xpug.html.HtmlHelper.title;
 import it.xpug.html.Element;
+import static it.xpug.html.HtmlHelper.*;
 
 public class CoursesList implements PageComponent {
 
@@ -21,14 +12,14 @@ public class CoursesList implements PageComponent {
 	}
 
 	public Element toHtml() {		
-		return html(
-			head(title("List all courses")),
-			body(
-				h1("List all courses")),
-				paragraph("These are our courses"),
-				coursesTable(),
-				link("/app/courses/new", "New Course")
-			);
+		return div(
+			coursesTable(),
+			link("/app/courses/new", "New Course")
+		);
+	}
+
+	public String pageTitle() {
+		return "All Courses";
 	}
 
 	private Element coursesTable() {
