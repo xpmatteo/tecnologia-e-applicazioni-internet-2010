@@ -1,6 +1,5 @@
 package it.xpug.html;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -9,16 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 public class Element extends HtmlDocument {
 
@@ -145,30 +136,16 @@ public class Element extends HtmlDocument {
 	}
 
 	public Element findByXPath(String xpath) throws ElementNotFoundException {
-		Node node = getNode(xpath);
-		return fromNode(node);
-	}
-
-	private static Element fromNode(Node node) {
-		Element result = new Element(node.getLocalName());
-		result.add(new TextNode(node.getTextContent()));
-		NamedNodeMap nodeAttributes = node.getAttributes();
-		for (int i=0; i<nodeAttributes.getLength(); i++) {
-			Node item = nodeAttributes.item(i);
-			String attributeName = item.getLocalName();
-			String attributeValue = item.getNodeValue();
-			result.with(attributeName, attributeValue);
-		}
-		return result;
+		Node node = toXmlDocument().getNode(xpath);
+		return fromXmlNode(node);
 	}
 
 	public int numberOfXPathMatches(String xpath) {
-		return getNodeList(xpath).getLength();
+		return toXmlDocument().numberOfMatches(xpath);
 	}
 
 	public String textContentByXPath(String xpath) throws ElementNotFoundException {
-		Node node = getNode(xpath);
-		return node.getTextContent().trim();
+		return toXmlDocument().nodeText(xpath);
 	}
 
 	@Override
@@ -197,28 +174,22 @@ public class Element extends HtmlDocument {
 		return true;
 	}
 	
-    private Document toW3cDomDocument() {
-	    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	    factory.setValidating(false);
-	    factory.setNamespaceAware(true);
-	    try {
-			ByteArrayInputStream is = new ByteArrayInputStream(toString().getBytes());
-			return factory.newDocumentBuilder().parse(is);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+    private XmlDocument toXmlDocument() {
+		return new XmlDocument(toString());
 	}
 
-	private NodeList getNodeList(String xpathString) {
-        try {
-        	// see http://www.ibm.com/developerworks/library/x-javaxpathapi.html
-        	XPathFactory factory = XPathFactory.newInstance();
-        	XPath xpath = factory.newXPath();
-			return (NodeList) xpath.evaluate(xpathString, this.toW3cDomDocument(), XPathConstants.NODESET);
-		} catch (XPathExpressionException e) {
-			throw new RuntimeException(e);
+	private static Element fromXmlNode(Node node) {
+		Element result = new Element(node.getLocalName());
+		result.add(new TextNode(node.getTextContent()));
+		NamedNodeMap nodeAttributes = node.getAttributes();
+		for (int i=0; i<nodeAttributes.getLength(); i++) {
+			Node item = nodeAttributes.item(i);
+			String attributeName = item.getLocalName();
+			String attributeValue = item.getNodeValue();
+			result.with(attributeName, attributeValue);
 		}
-    }
+		return result;
+	}
 
 	private String startTag() {
 		return makeTag("\n<%s%s>");
@@ -239,13 +210,5 @@ public class Element extends HtmlDocument {
 			attrs += String.format(" %s='%s'", name, value);
 		}
 		return String.format(format, name, attrs);
-	}
-
-	private Node getNode(String xpath) throws ElementNotFoundException {
-		NodeList nodes = getNodeList(xpath);
-		if (nodes.getLength() == 0) {
-			throw new ElementNotFoundException(xpath);
-		} 
-		return nodes.item(0);
 	}
 }

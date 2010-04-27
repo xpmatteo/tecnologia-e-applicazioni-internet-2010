@@ -1,0 +1,10 @@
+
+== Goal ==
+
+rewrite components to use a real builder
+
+== TODO ==
+
+ * fix failing test in ApplicationTest
+ * fix failing tests in LegoViews
+ * retrofit XmlDocument in Element  
