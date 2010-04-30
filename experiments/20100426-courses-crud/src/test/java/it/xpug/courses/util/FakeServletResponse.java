@@ -3,6 +3,7 @@ package it.xpug.courses.util;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.Writer;
 
 import static org.junit.Assert.*;
 import static java.lang.String.format;
@@ -10,7 +11,8 @@ import static java.lang.String.format;
 public class FakeServletResponse extends EmptyServletResponse {
 
 	private String expectedRedirect;
-	private PrintWriter writer = new PrintWriter(new StringWriter());
+	private Writer writer = new StringWriter();
+	private PrintWriter printWriter = new PrintWriter(writer);
 
 	public void expectRedirect(String expectedLocation) {
 		this.expectedRedirect = expectedLocation;
@@ -31,10 +33,11 @@ public class FakeServletResponse extends EmptyServletResponse {
 
 	@Override
 	public PrintWriter getWriter() throws IOException {
-		return writer;
+		return printWriter;
 	}
 
 	public String getOutputAsString() {
+		printWriter.flush();
 		return writer.toString();
 	}
 	

@@ -21,6 +21,7 @@ public class Application {
 
 	public void service() throws IOException {
 		if (get("/app/courses/list") || get("/app")) {
+			response.getWriter().write("<x/>");
 //			renderHtml(new CoursesList(database));
 		
 //		} else if (get("/app/courses/new")) {

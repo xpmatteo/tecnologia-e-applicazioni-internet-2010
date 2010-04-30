@@ -5,6 +5,11 @@ rewrite components to use a real builder
 
 == TODO ==
 
- * fix failing test in ApplicationTest
- * fix failing tests in LegoViews
- * retrofit XmlDocument in Element  
+ X fix failing test in ApplicationTest
+ X fix failing tests in LegoViews
+ X retrofit XmlDocument in Element  
+ 
+ * list of courses page
+ * new course form
+ * edit course form
+ * 
