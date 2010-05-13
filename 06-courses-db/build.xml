@@ -27,7 +27,12 @@
     </target>
 
     <target name="compile" depends="prepare">
-        <javac source="1.5" target="1.5" destdir="${build.prod.dir}" debug="true" encoding="utf-8">
+        <javac source="1.5" 
+              target="1.5" 
+              destdir="${build.prod.dir}" 
+              debug="true" 
+              encoding="utf-8" 
+              includeAntRuntime="false">
             <src path="${src.dir}" />
             <src path="${legoviews.dir}/src" />
             <classpath refid="project.classpath" />
@@ -61,6 +66,7 @@
 
     <target name="war" depends="compile">
         <war destfile="${war.file}" webxml="${config.dir}/web.xml">
+            <lib dir="${lib.dir}/db" includes="*.jar" />
             <classes dir="${build.prod.dir}" />
             <fileset dir="${web.dir}" />
             <classes dir="${config.dir}" includes="log4j.*" />
