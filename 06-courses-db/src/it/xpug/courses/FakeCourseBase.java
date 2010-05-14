@@ -3,9 +3,9 @@ package it.xpug.courses;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeCourseBase {
+public class FakeCourseBase implements CourseBase {
 
-	private List<Course> courses = new ArrayList<Course>();
+	List<Course> courses = new ArrayList<Course>();
 
 	public long count() {
 		return courses.size();

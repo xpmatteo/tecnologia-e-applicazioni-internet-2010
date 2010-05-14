@@ -1,5 +1,7 @@
 package it.xpug.courses;
 
+import it.xpug.html.Element;
+
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CoursesApplication {
 
-	private final FakeCourseBase database;
+	private final CourseBase database;
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
 	
-	public CoursesApplication(HttpServletRequest request, HttpServletResponse response, FakeCourseBase courses) {
+	public CoursesApplication(HttpServletRequest request, HttpServletResponse response, CourseBase courses) {
 		this.request = request;
 		this.response = response;
 		this.database = courses;
@@ -34,6 +36,7 @@ public class CoursesApplication {
 		
 		} else if (post("/app/courses/update")) {
 			Course course = database.findById(request.getParameter("id"));
+			course.setTitle(request.getParameter("title"));
 			database.update(course);
 			redirect("/app/courses/list");
 
@@ -51,7 +54,9 @@ public class CoursesApplication {
 	}
 	
 	private void renderHtml(PageComponent component) throws IOException {
-		component.toHtml().renderOn(response.getWriter());
+		Layout layout = new Layout(component);
+		Element html = layout.toHtml();
+		html.renderOn(response.getWriter());
 	}
 
 	private void redirect(String path) throws IOException {

@@ -14,16 +14,25 @@ public class CourseForm implements PageComponent {
 	public Element toHtml() {
 		return form(action(), "post",
 				paragraph(text("Title:"), textField("title", course.getTitle())),
+				hiddenField("id", "" + course.getId()),
 				paragraph(submitButton(label()))
 				);
 	}
 
+	public String pageTitle() {
+		return isNew() ? "New Course" : "Edit &ldquo;" + course.getTitle() + "&rdquo;";
+	}
+
 	private String action() {
-		return course.getId() == null ? "/app/courses/create" : "/app/courses/update";
+		return isNew() ? "/app/courses/create" : "/app/courses/update";
+	}
+
+	private boolean isNew() {
+		return course.getId() == null;
 	}
 
 	private String label() {
-		return course.getId() == null ? "Create" : "Edit";
+		return isNew() ? "Create" : "Edit";
 	}
 
 }

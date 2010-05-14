@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class CourseTest {
 
-	FakeCourseBase database = new FakeCourseBase();
+	CourseBase database = new FakeCourseBase();
 
 	@Test
 	public void newCoursesHaveNullId() throws Exception {
