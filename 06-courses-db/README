@@ -1,11 +1,63 @@
+== Add a real database ==
+
+We want to substitute the FakeCourseBase with a real database implementation.
+We have two new scripts:
+
+ - script/dbconsole.sh opens a hsqldb console; 
+ - script/create_databases.sh creates a test and development databases, 
+   with Hsqldb.
+
+These two scripts use the config/sqltool.rc configuration file. That file
+defines two databases, one for test and one for development.
+
+The goal of this exercise is to substitute the "new FakeCourseBase()" in
+CoursesServlet with a "new JdbcCourseBase()". The latter should use Hsqldb to
+access a real database.
+
+== How to proceed ==
+
+Make sure that you can see the application working in the browser (see "How to
+run" below). Don't proceed unless you can!!
+
+Make sure that this project in Eclipse runs all the tests.  
+
+Make sure that what you have in Eclipse is exactly the same code you are
+running from the command line :-) This is a fairly common problem with
+students.
+
+The first step is to change the "new FakeCourseBase()" in CoursesServlet with
+"new JdbcCourseBase()". Check that the application now is broken. If it isn't,
+it means you are not passing the check described in the previous paragraph.
+
+Now start implementing the JdbcCourseBase methods using Jdbc.  The first method I would suggest to work on is "count()".  
+
+
+== Points to ponder ==
+
+How to write unit tests for JdbcCourseBase?  
+
+How to make sure that the tests use a different database from the one used in development?  
+
+How do we pass the database configuration information to the application? Is
+it OK to wire the url, username and password directly in Java code?
+
+How do you feel about Jdbc code? Is it clear? Is it verbose? Would it be a
+good idea to keep Jdbc code in a separate object?
 
 
 == How to run ==
 
-Execute
+Open a terminal window on the project directory. Execute the following
+command:
 
  $ script/server.sh
 
-then open browser at http://localhost:8080
+If you're on Windows, you would type
 
+ > script\server.bat
+
+Then open a browser at http://localhost:8080/
+
+The Windows script may fail for a number of reasons. You may have to customize
+it for your installation.
 
