@@ -1,12 +1,10 @@
 package it.xpug.courses;
 
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.HashMap;
+import java.sql.Statement;
 
 public class Database {
 	
@@ -14,7 +12,6 @@ public class Database {
 
 	public Database(Connection connection) {
 		this.connection = connection;
-		
 	}
 	
 	public ListOfRows select(String sql) {
@@ -57,12 +54,19 @@ public class Database {
 		}
 	}
 
-	private void close(Object statement) {
+	private void close(ResultSet resultSet) {
+		if (null != resultSet) {
+			try {
+				resultSet.close();
+			} catch (Exception ignored) {}
+		}
+	}
+
+	private void close(Statement statement) {
 		if (null != statement) {
 			try {
-				Method method = statement.getClass().getMethod("close");
-				method.invoke(statement);
-			} catch (Exception e1) {}
+				statement.close();
+			} catch (Exception ignored) {}
 		}
 	}
 

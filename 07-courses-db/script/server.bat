@@ -10,6 +10,6 @@ if not exist target/courses.war (
   goto end
 )
 
-java -jar lib/winstone-0.9.10.jar --warfile target/courses.war
+java -Xbootclasspath/a:config -jar lib/winstone-0.9.10.jar --warfile target/courses.war
 
 :end

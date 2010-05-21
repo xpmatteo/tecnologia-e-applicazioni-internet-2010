@@ -27,12 +27,7 @@
     </target>
 
     <target name="compile" depends="prepare">
-        <javac source="1.5" 
-              target="1.5" 
-              destdir="${build.prod.dir}" 
-              debug="true" 
-              encoding="utf-8" 
-              includeAntRuntime="false">
+        <javac source="1.5" target="1.5" destdir="${build.prod.dir}" debug="true" encoding="utf-8" includeAntRuntime="false">
             <src path="${src.dir}" />
             <src path="${legoviews.dir}/src" />
             <classpath refid="project.classpath" />
@@ -40,7 +35,7 @@
     </target>
 
     <target name="compile-tests" depends="compile">
-        <javac source="1.5" target="1.5" destdir="${build.test.dir}" encoding="utf-8">
+        <javac source="1.5" target="1.5" destdir="${build.test.dir}" encoding="utf-8" includeAntRuntime="false">
             <src path="${test.dir}" />
             <src path="${legoviews.dir}/test" />
             <classpath refid="project.classpath" />

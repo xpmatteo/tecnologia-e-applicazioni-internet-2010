@@ -20,7 +20,7 @@ public class CoursesServlet extends HttpServlet {
 		try {
 			connection = getConnection(getConfiguration());
 			Database database = new Database(connection);
-			CourseBase courses = new JdbcCourseBase(database );
+			CourseBase courses = new JdbcCourseBase(database);
 			CoursesApplication app = new CoursesApplication(request, response, courses);
 			app.service();	
 			connection.commit();
@@ -34,7 +34,8 @@ public class CoursesServlet extends HttpServlet {
 
 	private void rollback(Connection connection) {
 		try {
-			connection.rollback();
+			if (null != connection)
+				connection.rollback();
 		} catch (SQLException ignore) {}
 	}
 
