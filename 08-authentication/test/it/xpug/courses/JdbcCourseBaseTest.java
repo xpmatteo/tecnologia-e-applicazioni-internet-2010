@@ -1,7 +1,7 @@
 package it.xpug.courses;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import it.xpug.courses.util.TestDatabase;
+
 import java.util.List;
 
 import org.junit.Before;
@@ -12,16 +12,11 @@ import static org.junit.Assert.*;
 
 public class JdbcCourseBaseTest {
 
-	private String url = "jdbc:hsqldb:file:./db/databases/courses_test;shutdown=true";
-	private String username = "sa";
-	private String password = "";
 	private CourseBase base;
 	
 	@Before
 	public void setUp() throws Exception {
-		Class.forName("org.hsqldb.jdbcDriver");
-		Connection connection = DriverManager.getConnection(url, username, password);
-		base = new JdbcCourseBase(new Database(connection ));
+		base = new JdbcCourseBase(new TestDatabase());
 		base.deleteAll();
 	}
 	

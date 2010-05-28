@@ -13,14 +13,17 @@ public class CoursesApplication {
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
 	
-	public CoursesApplication(HttpServletRequest request, HttpServletResponse response, CourseBase courses) {
+	public CoursesApplication(HttpServletRequest request, HttpServletResponse response, CourseBase courses, UserBase userBase) {
 		this.request = request;
 		this.response = response;
 		this.database = courses;
 	}
 
 	public void service() throws IOException {
-		if (get("/app/courses/list") || get("/app")) {
+		if (userNotAuthenticated()) {
+			redirect("/app/users/login");
+		
+		} else if (get("/app/courses/list") || get("/app")) {
 			renderHtml(new CoursesList(database));
 		
 		} else if (get("/app/courses/new")) {
@@ -43,6 +46,11 @@ public class CoursesApplication {
 		} else {
 			response.sendError(404);
 		}
+	}
+
+	private boolean userNotAuthenticated() {
+		Integer userId = (Integer) request.getSession().getAttribute("user_id");
+		return userId == null;
 	}
 
 	private boolean post(String path) {

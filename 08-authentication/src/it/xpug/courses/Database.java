@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Database {
@@ -14,12 +15,12 @@ public class Database {
 		this.connection = connection;
 	}
 	
-	public ListOfRows select(String sql) {
+	public ListOfRows select(String sql, Object ... params) {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		try {
 			ListOfRows result = new ListOfRows();
-			statement = connection.prepareStatement(sql);
+			statement = prepareStatement(sql, params);
 			resultSet = statement.executeQuery();
 			ResultSetMetaData metaData = resultSet.getMetaData();
 			while (resultSet.next()) {
@@ -41,17 +42,21 @@ public class Database {
 	public void execute(String sql, Object... params) {
 		PreparedStatement statement = null;
 		try {
-			statement = connection.prepareStatement(sql);
-
-			for (int i = 0; i < params.length; i++) {
-				statement.setObject(i + 1, params[i]);
-			}
+			statement = prepareStatement(sql, params);
 			statement.execute();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
 			close(statement);
 		}
+	}
+
+	private PreparedStatement prepareStatement(String sql, Object... params) throws SQLException {
+		PreparedStatement statement = connection.prepareStatement(sql);
+		for (int i = 0; i < params.length; i++) {
+			statement.setObject(i + 1, params[i]);
+		}
+		return statement;
 	}
 
 	private void close(ResultSet resultSet) {
