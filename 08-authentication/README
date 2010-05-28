@@ -1,0 +1,40 @@
+== Add a real database ==
+
+Continuing from last time, we now have a Jdbc implementation of CourseBase in
+place. There is one thing that is still not working, though: the editing of
+existing courses.
+
+Note that the database url and credentials are *not* hardwired; they are passed to the application through the classpath.  The configuration file is config/courses.properties.  I added an option to the java command in  script/server.sh so that the config directory becomes part of the classpath.  
+
+Should you wish to deploy the application in some other servlet container, you would need to add the courses.properties file in its classpath somehow.  
+
+An alternative way to pass this information is to make a DataSource available with JNDI.  Perhaps we'll use this method in a later lesson.
+
+
+== How to proceed ==
+
+a) Make sure that CourseBase.findAll does retrieve the ID of the courses
+b) Implement CourseBase.findById
+c) Implement CourseBase.update
+
+
+== How to run ==
+
+First thing, create the databases with
+
+ $ script/create_databases.sh
+
+This needs only be done once. Open a terminal window on the project directory.
+Execute the following command:
+
+ $ script/server.sh
+
+If you're on Windows, you would type
+
+ > script\server.bat
+
+Then open a browser at http://localhost:8080/
+
+The Windows script may fail for a number of reasons. You may have to customize
+it for your installation.
+
