@@ -1,5 +1,7 @@
 package it.xpug.courses;
 
+import java.io.IOException;
+
 import it.xpug.courses.util.FakeServletRequest;
 import it.xpug.courses.util.FakeServletResponse;
 
@@ -24,19 +26,24 @@ public class CoursesApplicationTest {
 	
 	@Test
 	public void updateChangesMyObjectAndRedirects() throws Exception {
-		post("/app/courses/update");
 		request.setParameter("id", "" + database.getLast().getId());
 		request.setParameter("title", "bar");
+
+		post("/app/courses/update");
 		
-		response.expectRedirect("/app/courses/list");
-		
-		assertEquals("foo", database.getLast().getTitle());
-		app.service();
 		assertEquals("bar", database.getLast().getTitle());
+		assertEquals("/app/courses/list", response.redirectLocation);
 	}
 	
-	private void post(String path) {
+	private void post(String path) throws IOException {
 		request.method = "POST";
 		request.requestUri = path;
+		app.service();
+	}
+
+	private void get(String path) throws IOException {
+		request.method = "GET";
+		request.requestUri = path;
+		app.service();
 	}
 }
