@@ -93,10 +93,6 @@ public class HtmlHelper {
 		return heading(text, 3);
 	}
 
-	private static Element heading(String text, int level) {
-		return elementWithText("h" + level, text);
-	}
-
 	public static Element tableHeader(Element ... elements) {
 		return elementWithContents("th", elements);
 	}
@@ -110,15 +106,19 @@ public class HtmlHelper {
 	}
 
 	public static Element textField(String name) {
-		return new Element("input", EmptyMode.SINGLE_TAG).with("type", "text").with("name", name);
+		return textField(name, "");
 	}
 	
 	public static Element textField(String name, String value) {
-		return new Element("input", EmptyMode.SINGLE_TAG).with("type", "text").with("name", name).with("value", value);
+		return inputField("text", name, value);
+	}
+
+	public static Element hiddenField(String name, String value) {
+		return inputField("hidden", name, value);
 	}
 	
-	public static Element hiddenField(String name, String value) {
-		return new Element("input", EmptyMode.SINGLE_TAG).with("type", "hidden").with("name", name).with("value", value);
+	public static Element passwordField(String name, String value) {
+		return inputField("password", name, value);
 	}
 	
 	public static TextNode text(String text) {
@@ -129,6 +129,10 @@ public class HtmlHelper {
 		return new Element("br", EmptyMode.SINGLE_TAG);
 	}
 	
+	private static Element inputField(String type, String name, String value) {
+		return new Element("input", EmptyMode.SINGLE_TAG).with("type", type).with("name", name).with("value", value);
+	}
+
 	private static String url(String context, String href) {
 		return context + "/" + href;
 	}
@@ -139,6 +143,10 @@ public class HtmlHelper {
 
 	private static Element elementWithContents(String name, List<HtmlDocument> contents) {
 		return new Element(name).addAll(contents.toArray(new HtmlDocument[]{})) ;
+	}
+
+	private static Element heading(String text, int level) {
+		return elementWithText("h" + level, text);
 	}
 
 	private static Element elementWithText(String name, String text) {
