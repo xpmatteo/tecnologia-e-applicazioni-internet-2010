@@ -1,0 +1,64 @@
+== Add authentication ==
+
+We want to make sure that users are authenticated when they access our
+application. This means we will use the session to store the id of the
+authenticated user. If there is no id in the session, we redirect the user to
+a login page.
+
+
+What to do?
+
+ - I created a users table. Find the creation script in
+   db/sql/001_create_users.sql
+
+ - I wrote a UserBase interface and an implementation JdbcUserBase
+
+ - Cleaned up the CoursesAppTest.  
+
+ - Add a test to CoursesAppTest that proves that if I try to access the main
+   page I will be redirected to the url of the login form
+
+ - Update FakeHttpRequest so that it supports simulating the session
+ 
+ - Add redirection in CoursesApplication
+ 
+ - Add a User class, with support for hashing the password with SHA-1.
+
+ - Add a UserBase class, with support for looking up a user by login and
+   hashed password
+
+== How to proceed ==
+
+Create a login form, with login and password, and check that you can see it.
+Also check that the application redirects to the login form. You may
+test-drive the login form if you want.
+
+Then check that the CoursesApplication responds correctly to an authentication
+request. There are two ignored tests in CoursesApplicationTest. Remove the
+@Ignore annotation and make them pass.
+
+If you feel like it, you may proceed with creating a user registration page.
+
+Note that a message like "The page isn't redirecting properly" means that
+there is an infinite redirection loop. Make sure that the login form is
+accessible to non-authenticated users!!!
+
+== How to run ==
+
+Open a terminal window on the project directory.  Create the databases with
+
+ $ script/create_databases.sh
+
+This needs only be done once. There is a test user in the database, with login
+and password "admin", "secret".
+
+Execute the following command:
+
+ $ script/server.sh
+
+If you're on Windows, you would type
+
+ > script\server.bat
+
+Then open a browser at http://localhost:8080/
+
