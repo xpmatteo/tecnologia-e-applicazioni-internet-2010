@@ -13,7 +13,8 @@ public class LoginForm implements PageComponent {
 
 	public Element toHtml() {
 		return form("action", "method",
-				textField("login"));
+				textField("login"),
+				passwordField("password", ""));
 	}
 
 }

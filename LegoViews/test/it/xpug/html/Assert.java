@@ -23,6 +23,10 @@ public class Assert {
 		assertContainsInput("hidden", name, value, html);
 	}
 
+	public static void assertContainsPasswordField(String name, String value, Element html) throws ElementNotFoundException {
+		assertContainsInput("password", name, value, html);
+	}
+
 	public static void assertContainsInput(String type, String name, String value, Element html) throws ElementNotFoundException {
 		assertMatches("no form found", "//form", html);
 		

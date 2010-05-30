@@ -22,7 +22,7 @@ public class LoginFormTest {
 		Element html = form.toHtml();
 		
 		assertContainsTextField("login", "", html);
-//		assertContainsHiddenField("id", "123", html);
+		assertContainsPasswordField("password", "", html);
 	}
 	
 	@Test
