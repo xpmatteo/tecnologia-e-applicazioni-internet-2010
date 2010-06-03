@@ -5,16 +5,31 @@ import it.xpug.html.Element;
 
 public class LoginForm implements PageComponent {
 
-	static final String AUTHENTICATE_ACTION = "/app/users/authenticate";
+	private final String action;
+
+	public LoginForm(String action) {
+		this.action = action;
+	}
 
 	public String pageTitle() {
 		return "Please login";
 	}
 
 	public Element toHtml() {
-		return form("action", "method",
-				textField("login"),
-				passwordField("password", ""));
+		return form(action, "post",
+				paragraph(
+					text("Login:"),
+					newLine(),
+					textField("login")),
+				paragraph(
+					text("Password:"),
+					newLine(),
+					passwordField("password", "")
+				),
+				paragraph(
+					submitButton("OK")
+				)
+			);
 	}
 
 }

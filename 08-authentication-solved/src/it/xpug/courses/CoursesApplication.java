@@ -22,12 +22,15 @@ public class CoursesApplication {
 	}
 
 	public void service() throws IOException {
-		if (post(LoginForm.AUTHENTICATE_ACTION)) {
+		if (post("/app/users/authenticate")) {
 			if (authenticate()) {
 				redirect("/app/courses/list");
 			} else {
-				renderHtml(new LoginForm());
+				renderHtml(new LoginForm("/app/users/authenticate"));
 			}
+			
+		} else if (get("/app/users/login")) {
+			renderHtml(new LoginForm("/app/users/authenticate"));	
 			
 		} else if (userNotAuthenticated()) {
 			redirect("/app/users/login");

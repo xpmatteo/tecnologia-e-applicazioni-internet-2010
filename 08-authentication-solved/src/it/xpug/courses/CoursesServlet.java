@@ -21,7 +21,8 @@ public class CoursesServlet extends HttpServlet {
 			connection = getConnection(getConfiguration());
 			Database database = new Database(connection);
 			CourseBase courses = new JdbcCourseBase(database);
-			CoursesApplication app = new CoursesApplication(request, response, courses, null);
+			UserBase userBase = new JdbcUserBase(database);
+			CoursesApplication app = new CoursesApplication(request, response, courses, userBase);
 			app.service();	
 			connection.commit();
 		} catch (Exception e) {
