@@ -26,6 +26,7 @@ import static org.junit.Assert.*;
 public class CourseListEndToEndTest {
 
 	private static final String WAR_PATHNAME = "target/courses.war";
+	private static final String SERVER_PORT = "8123";
 	private WebClient client;
 	private HtmlPage page;
 	private HtmlForm htmlForm;
@@ -113,14 +114,14 @@ public class CourseListEndToEndTest {
 	}
 
 	private void visit(String url) throws IOException, MalformedURLException {
-		page = client.getPage("http://localhost:8123" + url);
+		page = client.getPage("http://localhost:" + SERVER_PORT + url);
 	}
 
 	private static void startServer() throws IOException {
 		Map<String, String> args = new HashMap();
 		args.put("debug", "" + Logger.ERROR);
 		Launcher.initLogger(args);
-		args.put("httpPort", "8123");
+		args.put("httpPort", SERVER_PORT);
 		args.put("ajp13Port", "-1");
 		args.put("warfile", WAR_PATHNAME); 
 		new Launcher(args);
@@ -131,4 +132,5 @@ public class CourseListEndToEndTest {
 		process.waitFor();
 		assertEquals(0, process.exitValue());
 	}
+	
 }
