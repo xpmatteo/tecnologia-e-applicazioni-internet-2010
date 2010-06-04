@@ -3,7 +3,6 @@ package it.xpug.courses;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -18,7 +17,7 @@ public class CoursesServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection connection = null;
 		try {
-			connection = getConnection(getConfiguration());
+			connection = Database.getConnection(getConfiguration());
 			Database database = new Database(connection);
 			CourseBase courses = new JdbcCourseBase(database);
 			UserBase userBase = new JdbcUserBase(database);
@@ -56,17 +55,5 @@ public class CoursesServlet extends HttpServlet {
 		properties.load(stream);
 		return properties;
 	}
-
-	private Connection getConnection(Properties properties) throws ClassNotFoundException, SQLException {
-		String url = properties.getProperty("url");
-		String username = properties.getProperty("username");
-		String password = properties.getProperty("password");
-		String driver = properties.getProperty("jdbc_driver");
-		Class.forName(driver);
-		Connection connection = DriverManager.getConnection(url, username , password );
-		connection.setAutoCommit(false);
-		return connection;
-	}
-	
 
 }

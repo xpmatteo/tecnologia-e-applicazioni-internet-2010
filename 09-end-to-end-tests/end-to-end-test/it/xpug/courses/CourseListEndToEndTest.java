@@ -3,9 +3,6 @@ package it.xpug.courses;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,8 +138,6 @@ public class CourseListEndToEndTest {
 		assertEquals(0, process.exitValue());
 	}
 	
-
-
 	private Properties getConfiguration() throws IOException, ServletException {
 		InputStream stream = this.getClass().getResourceAsStream("/courses.properties");
 		if (null == stream) {
@@ -153,24 +148,13 @@ public class CourseListEndToEndTest {
 		return properties;
 	}
 
-	private Connection getConnection(Properties properties) throws ClassNotFoundException, SQLException {
-		String url = properties.getProperty("url");
-		String username = properties.getProperty("username");
-		String password = properties.getProperty("password");
-		String driver = properties.getProperty("jdbc_driver");
-		Class.forName(driver);
-		Connection connection = DriverManager.getConnection(url, username , password );
-		connection.setAutoCommit(false);
-		return connection;
-	}
-
 	private void saveUser(String login, String password) throws Exception {
 		String encryptedPassword = User.encrypt(password);
 		execute("insert into users (login, encrypted_password) values (?, ?)", login, encryptedPassword);
 	}
 
 	private void execute(String sql, Object ... params) throws Exception {
-		new Database(getConnection(getConfiguration())).execute(sql, params);
+		new Database(Database.getConnection(getConfiguration())).execute(sql, params);
 	}
 
 }

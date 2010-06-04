@@ -1,7 +1,5 @@
 package it.xpug.courses;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,8 +8,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-
-import javax.servlet.ServletException;
 
 public class Database {
 	
@@ -55,6 +51,17 @@ public class Database {
 		} finally {
 			close(statement);
 		}
+	}
+	
+	public static Connection getConnection(Properties properties) throws ClassNotFoundException, SQLException {
+		String url = properties.getProperty("url");
+		String username = properties.getProperty("username");
+		String password = properties.getProperty("password");
+		String driver = properties.getProperty("jdbc_driver");
+		Class.forName(driver);
+		Connection connection = DriverManager.getConnection(url, username , password );
+		connection.setAutoCommit(false);
+		return connection;
 	}
 
 	private PreparedStatement prepareStatement(String sql, Object... params) throws SQLException {
