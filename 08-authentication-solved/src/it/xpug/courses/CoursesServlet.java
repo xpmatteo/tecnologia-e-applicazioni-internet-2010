@@ -48,7 +48,7 @@ public class CoursesServlet extends HttpServlet {
 	}
 
 	private Properties getConfiguration() throws IOException, ServletException {
-		InputStream stream = this.getClass().getClassLoader().getResourceAsStream("/courses.properties");
+		InputStream stream = this.getClass().getResourceAsStream("/courses.properties");
 		if (null == stream) {
 			throw new ServletException("cant't find courses.properties");
 		}
