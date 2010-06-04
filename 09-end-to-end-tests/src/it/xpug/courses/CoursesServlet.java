@@ -1,10 +1,8 @@
 package it.xpug.courses;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +15,7 @@ public class CoursesServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Connection connection = null;
 		try {
-			connection = Database.getConnection(getConfiguration());
+			connection = Database.getConnection(new Configuration());
 			Database database = new Database(connection);
 			CourseBase courses = new JdbcCourseBase(database);
 			UserBase userBase = new JdbcUserBase(database);
@@ -44,16 +42,6 @@ public class CoursesServlet extends HttpServlet {
 			if (null != connection)
 				connection.close();
 		} catch (SQLException ignore) {}
-	}
-
-	private Properties getConfiguration() throws IOException, ServletException {
-		InputStream stream = this.getClass().getResourceAsStream("/courses.properties");
-		if (null == stream) {
-			throw new ServletException("cant't find courses.properties");
-		}
-		Properties properties = new Properties();
-		properties.load(stream);
-		return properties;
 	}
 
 }

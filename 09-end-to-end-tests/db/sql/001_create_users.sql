@@ -3,7 +3,8 @@ create table users (
     id integer identity,
     login varchar(255) not null,
     encrypted_password varchar(255) not null,
-    primary key(id)
+    primary key(id),
+    unique(login)
 );
 
  -- password is "secret", obtained with

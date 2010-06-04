@@ -1,19 +1,18 @@
 package it.xpug.courses;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
-import javax.servlet.ServletException;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
@@ -29,11 +28,12 @@ import static org.junit.Assert.*;
 
 public class CourseListEndToEndTest {
 
+	private static final String VALID_USER = "donald";
+	private static final String VALID_USER_PASSWORD = "duck";
 	private static final String WAR_PATHNAME = "target/courses.war";
 	private static final String SERVER_PORT = "8123";
 	private WebClient client;
 	private HtmlPage page;
-	private HtmlForm htmlForm;
 
 	@BeforeClass
 	public static void buildAndStartServer() throws Exception {
@@ -43,7 +43,8 @@ public class CourseListEndToEndTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		saveUser("admin", "secret");
+		deleteAllUsers();
+		saveUser(VALID_USER, VALID_USER_PASSWORD);
 		client = new WebClient();
 	}
 
@@ -55,13 +56,13 @@ public class CourseListEndToEndTest {
 	
 	@Test
 	public void validLogin() throws Exception {
-		loginAs("admin", "secret");
+		loginAs(VALID_USER, VALID_USER_PASSWORD);
 		assertLoggedIn();
 	}
 	
 	@Test
 	public void insertACourse() throws Exception {
-		loginAs("admin", "secret");
+		loginAs(VALID_USER, VALID_USER_PASSWORD);
 		
 		visit("/app/courses/list");
 		int numberBefore = numberOfCoursesListed();
@@ -72,13 +73,19 @@ public class CourseListEndToEndTest {
 		assertEquals(numberBefore+1, numberOfCoursesListed());
 	}
 	
+	private void submitCourseForm() {
+		throw new RuntimeException("Not yet implemented!");
+	}
+
+	private void insertCourseDescription(String string) {
+		throw new RuntimeException("Not yet implemented!");
+	}
+
 	private void loginAs(String login, String password) throws Exception {
 		visit("/app/users/login");
-		HtmlForm loginForm = page.getForms().get(0);
-		loginForm.getInputByName("login").setValueAttribute(login);
-		loginForm.getInputByName("password").setValueAttribute(password);
-		HtmlInput button = loginForm.getInputByName("submit");		
-		page = button.click();
+		getInputByName("login").setValueAttribute(login);
+		getInputByName("password").setValueAttribute(password);
+		page = getInputByName("submit").click();		
 	}
 
 	private void assertLoggedIn() {
@@ -96,20 +103,23 @@ public class CourseListEndToEndTest {
 		page = link.click();
 	}
 	
-	private void insertCourseDescription(String string) {
-		throw new RuntimeException("Not yet implemented!");
-	}
-
-	private void submitCourseForm() {
-		throw new RuntimeException("Not yet implemented!");
+	private HtmlInput getInputByName(String name) {
+		try {
+			return getFirstForm().getInputByName(name);
+		} catch (ElementNotFoundException e) {
+			fail("can't find input element for " + name);
+			return null;
+		}
 	}
 
 	private void insertCourseTitle(String newTitle) {
+		getInputByName("title").setValueAttribute(newTitle);
+	}
+
+	private HtmlForm getFirstForm() {
 		List<HtmlForm> forms = page.getForms();
-		assertTrue("new course form not found", forms.size() > 0);
-		htmlForm = forms.get(0);
-		HtmlInput courseTitleInput = htmlForm.getInputByName("title");
-		courseTitleInput.setValueAttribute(newTitle);
+		assertTrue("form not found", forms.size() > 0);
+		return forms.get(0);
 	}
 
 	private int numberOfCoursesListed() {
@@ -138,23 +148,19 @@ public class CourseListEndToEndTest {
 		assertEquals(0, process.exitValue());
 	}
 	
-	private Properties getConfiguration() throws IOException, ServletException {
-		InputStream stream = this.getClass().getResourceAsStream("/courses.properties");
-		if (null == stream) {
-			throw new RuntimeException("cant't find courses.properties");
-		}
-		Properties properties = new Properties();
-		properties.load(stream);
-		return properties;
-	}
-
 	private void saveUser(String login, String password) throws Exception {
 		String encryptedPassword = User.encrypt(password);
 		execute("insert into users (login, encrypted_password) values (?, ?)", login, encryptedPassword);
 	}
 
-	private void execute(String sql, Object ... params) throws Exception {
-		new Database(Database.getConnection(getConfiguration())).execute(sql, params);
+	private void deleteAllUsers() throws Exception {
+		execute("delete from users");
 	}
 
+	private void execute(String sql, Object ... params) throws Exception {
+		Connection connection = Database.getConnection(new Configuration());
+		new Database(connection).execute(sql, params);
+		connection.commit();
+		connection.close();
+	}
 }

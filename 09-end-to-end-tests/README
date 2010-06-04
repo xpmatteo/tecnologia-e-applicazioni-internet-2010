@@ -1,47 +1,19 @@
-== Add authentication ==
+== End to end tests ==
 
-We want to make sure that users are authenticated when they access our
-application. This means we will use the session to store the id of the
-authenticated user. If there is no id in the session, we redirect the user to
-a login page.
+End-to-end tests are a means to describe a whole scenario, told in terms of what the user does with the system and sees the system do. 
 
+One important thing to keep in mind is that these tests are slow and brittle.  For this reason it's important to make them as expressive and readable as possible.
 
-What to do?
+There are different opinions in the Agile community about the value of e2e tests.  Freeman and Pryce are strong proponents, and have written a book [0] that shows how to use e2e tests well.  James Shore, author of The Art Of Agile Development, argues against them.  Who's right?  That's not for me to say.  Try them, see if they work for you, reflect about your work and make your opinion.
 
- - I created a users table. Find the creation script in
-   db/sql/001_create_users.sql
+There are different technical means to implement these tests.  My favourite Java tool for web apps is HtmlUnit.
 
- - I wrote a UserBase interface and an implementation JdbcUserBase
-
- - Cleaned up the CoursesAppTest.  
-
- - Add a test to CoursesAppTest that proves that if I try to access the main
-   page I will be redirected to the url of the login form
-
- - Update FakeHttpRequest so that it supports simulating the session
- 
- - Add redirection in CoursesApplication
- 
- - Add a User class, with support for hashing the password with SHA-1.
-
- - Add a UserBase class, with support for looking up a user by login and
-   hashed password
 
 == How to proceed ==
 
-Create a login form, with login and password, and check that you can see it.
-Also check that the application redirects to the login form. You may
-test-drive the login form if you want.
+I created a new source directory for e2e tests.  Running these tests probably does not work on Windows.  You'll have to comment out the @BeforeClass section and run the application manually.  Or better, start using Linux or other Unix derivatives for running these exercises.
 
-Then check that the CoursesApplication responds correctly to an authentication
-request. There are two ignored tests in CoursesApplicationTest. Remove the
-@Ignore annotation and make them pass.
-
-If you feel like it, you may proceed with creating a user registration page.
-
-Note that a message like "The page isn't redirecting properly" means that
-there is an infinite redirection loop. Make sure that the login form is
-accessible to non-authenticated users!!!
+There is a failing e2e test.  Your job is to make it work.  Once it works, you may want to write a new e2e test to cover the "edit an existing Course" scenario.
 
 == How to run ==
 
@@ -60,5 +32,5 @@ If you're on Windows, you would type
 
  > script\server.bat
 
-Then open a browser at http://localhost:8080/
+instead. Then open a browser at http://localhost:8080/
 
