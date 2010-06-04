@@ -102,7 +102,7 @@ public class HtmlHelper {
 	}
 
 	public static Element submitButton(String label) {
-		return new Element("input", EmptyMode.SINGLE_TAG).with("type", "submit").with("value", label);
+		return new Element("input", EmptyMode.SINGLE_TAG).with("type", "submit").with("value", label).with("name", "submit");
 	}
 
 	public static Element textField(String name) {

@@ -55,13 +55,15 @@ public class CourseListEndToEndTest {
 	
 	@Test
 	public void insertACourse() throws Exception {
+		loginAs("admin", "secret");
+		
 		visit("/app/courses/list");
-		assertEquals("number of courses listed", 0, numberOfCoursesListed());
+		int numberBefore = numberOfCoursesListed();
 		clickOnNewCourseButton();
 		insertCourseTitle("Course Title");
 		insertCourseDescription("A Description");
 		submitCourseForm();
-		assertEquals(1, numberOfCoursesListed());
+		assertEquals(numberBefore+1, numberOfCoursesListed());
 	}
 	
 	private void loginAs(String login, String password) throws Exception {
@@ -69,7 +71,8 @@ public class CourseListEndToEndTest {
 		HtmlForm loginForm = page.getForms().get(0);
 		loginForm.getInputByName("login").setValueAttribute(login);
 		loginForm.getInputByName("password").setValueAttribute(password);
-		page = loginForm.getInputByName("login").click();
+		HtmlInput button = loginForm.getInputByName("submit");		
+		page = button.click();
 	}
 
 	private void assertLoggedIn() {
@@ -124,7 +127,7 @@ public class CourseListEndToEndTest {
 	}
 
 	private static void buildWar() throws IOException, InterruptedException {
-		Process process = Runtime.getRuntime().exec("ant war");
+		Process process = Runtime.getRuntime().exec("ant clean war");
 		process.waitFor();
 		assertEquals(0, process.exitValue());
 	}
