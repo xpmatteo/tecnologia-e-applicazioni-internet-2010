@@ -49,7 +49,7 @@ public class CoursesServlet extends HttpServlet {
 	private Properties getConfiguration() throws IOException, ServletException {
 		InputStream stream = this.getClass().getResourceAsStream("/courses.properties");
 		if (null == stream) {
-			throw new RuntimeException("cant't find courses.properties");
+			throw new ServletException("cant't find courses.properties");
 		}
 		Properties properties = new Properties();
 		properties.load(stream);
