@@ -8,6 +8,7 @@ There are different opinions in the Agile community about the value of e2e tests
 
 There are different technical means to implement these tests.  My favourite Java tool for web apps is HtmlUnit.
 
+[0] http://www.growing-object-oriented-software.com/
 
 == How to proceed ==
 
