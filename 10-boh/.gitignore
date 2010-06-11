@@ -1,6 +1,0 @@
-bin
-target
-.svn
-.DS_Store
-*~
-db/databases/*

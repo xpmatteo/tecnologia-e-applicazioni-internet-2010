@@ -15,6 +15,7 @@ import org.junit.Test;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -85,7 +86,7 @@ public class CourseListEndToEndTest {
 		visit("/app/users/login");
 		getInputByName("login").setValueAttribute(login);
 		getInputByName("password").setValueAttribute(password);
-		page = getInputByName("submit").click();		
+		page = getSubmitButton().click();		
 	}
 
 	private void assertLoggedIn() {
@@ -111,6 +112,15 @@ public class CourseListEndToEndTest {
 			return null;
 		}
 	}
+	
+	private HtmlElement getSubmitButton() {
+		List<?> elements = page.getByXPath("//form//input[@type='submit']");
+		if (0 == elements.size()) 
+			fail("no input button found");
+		return (HtmlElement) elements.get(0);
+	}
+
+
 
 	private void insertCourseTitle(String newTitle) {
 		getInputByName("title").setValueAttribute(newTitle);

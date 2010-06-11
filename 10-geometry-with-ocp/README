@@ -1,0 +1,17 @@
+
+== About ==
+
+See 05-courses
+ 
+== Exercise ==
+
+[DONE] a) Fix the error in editing courses
+
+b) Add a "delete" link to the courses listing
+
+[DONE] c) Add a common layout.  The layout should be defined in a single place and applied to all pages.  The layout should use the /stylesheets/style.css file that is found in src/main/webapp
+
+d) (Advanced.)  A course is offered in many editions.  
+   * Add a CRUD for creating and editing the editions of a course.  An edition has a time and a place.
+   * Add an /app/calendar page that shows all future editions of courses.
+

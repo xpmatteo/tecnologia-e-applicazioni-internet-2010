@@ -2,8 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
-
+import static java.util.Arrays.*;
 
 public class FizzBuzzTest {
 
@@ -11,25 +10,26 @@ public class FizzBuzzTest {
 
 	@Before
 	public void setUp() throws Exception {
-		buzzer = new FizzBuzzer(
-						new WordRule(3, "Fizz", 
-								new WordRule(5, "Buzz",
-										new WordRule(7, "Bang", 
-											new DefaultRule()))));		
+		buzzer = new FizzBuzzer(asList(
+				new WordRule(3, "Fizz"), 
+				new WordRule(5, "Buzz"), 
+				new WordRule(7, "Bang"), 
+				new DefaultRule()));
+
 	}
-	
+
 	@Test
 	public void sayTheNumber() throws Exception {
 		assertEquals("1", buzzer.say(1));
 		assertEquals("2", buzzer.say(2));
 	}
-	
+
 	@Test
 	public void sayFizzWhenMultipleOfThree() throws Exception {
 		assertEquals("Fizz", buzzer.say(3));
 		assertEquals("Fizz", buzzer.say(9));
 	}
-	
+
 	@Test
 	public void sayBuzzWhenMultipleOfFive() throws Exception {
 		assertEquals("Buzz", buzzer.say(5));
@@ -47,9 +47,9 @@ public class FizzBuzzTest {
 
 	@Test
 	public void sayFizzBangWhenMultipleOfSeven() throws Exception {
-		assertEquals("FizzBang", buzzer.say(7*3));
-		assertEquals("BuzzBang", buzzer.say(7*5));
-		assertEquals("FizzBuzzBang", buzzer.say(7*5*3));
+		assertEquals("FizzBang", buzzer.say(7 * 3));
+		assertEquals("BuzzBang", buzzer.say(7 * 5));
+		assertEquals("FizzBuzzBang", buzzer.say(7 * 5 * 3));
 	}
 
 }

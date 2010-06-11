@@ -1,0 +1,20 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+     version="2.4">
+     
+  <display-name>Geometry</display-name>
+  <servlet>
+    <servlet-name>geometry</servlet-name>
+    <servlet-class>it.xpug.geometry.GeometryServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>geometry</servlet-name>
+    <url-pattern>/geo/*</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>geo</welcome-file>
+  </welcome-file-list>
+</web-app>

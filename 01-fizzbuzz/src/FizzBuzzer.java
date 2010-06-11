@@ -1,15 +1,20 @@
+import java.util.List;
+
 
 public class FizzBuzzer {
 
-	private final Rule rule;
 
-	public FizzBuzzer(Rule rule) {
-		this.rule = rule;
+	private final List<Rule> rules;
+
+	public FizzBuzzer(List<Rule> rules) {
+		this.rules = rules;
 	}
 
 	public String say(Integer n) {
 		StringBuilder result = new StringBuilder();
-		rule.say(n, result);
+		for (Rule rule : rules) {
+			rule.say(n, result);
+		}		
 		return result.toString();
 	}
 
