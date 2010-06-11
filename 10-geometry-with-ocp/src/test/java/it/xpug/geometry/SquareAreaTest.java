@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 
 
 public class SquareAreaTest {
+	private static final double TOLERANCE = Math.pow(10, -6);
 	SquareAreaCalculator calculator = new SquareAreaCalculator();
 	Map<String, String[]> params = new HashMap<String, String[]>();
 
@@ -27,9 +28,9 @@ public class SquareAreaTest {
 	
 	@Test
 	public void calculateSquareArea() throws Exception {
-		double area = calculator.calculate(4.0);
+		double area = calculator.calculate(0.4);
 		
-		assertEquals(16.0, area, Math.pow(10, -6));
+		assertEquals(0.16, area, TOLERANCE);
 	}
 
 
@@ -40,7 +41,7 @@ public class SquareAreaTest {
 		PageComponent component = new SquareAreaPage(calculator, params); 
 		Element html = component.toHtml();
 
-		html.findByXPath("//p[text()='Area: lato x lato = 9.0']");
+		html.findByXPath("//p[text()='Area: side x side = 9.0']");
 	}
 
 }

@@ -1,4 +1,4 @@
-package it.xpug.geometry.util;
+package it.xpug.test.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

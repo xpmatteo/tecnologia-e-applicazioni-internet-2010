@@ -20,6 +20,7 @@ public class GeometryApplication {
 		for (PageComponent component : components) {
 			if (component.wantsToHandle(request)) {
 				renderHtml(response, component);
+				break;
 			}
 		}		
 	}

@@ -31,7 +31,7 @@ public class SquareAreaPage implements PageComponent {
 					submitButton("Calculate")));
 		
 		double answer = areaCalculator.calculate(side);
-		return div(form, paragraph(String.format("Area: lato x lato = %s", answer)));
+		return div(form, paragraph(String.format("Area: side x side = %s", answer)));
 	}
 
 	public boolean wantsToHandle(HttpServletRequest request) {
