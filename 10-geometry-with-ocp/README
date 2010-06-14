@@ -1,6 +1,41 @@
 
 == About ==
 
+At the beginning of this course I was talking about how to make our code easy to change, and we said that having many IF's is an indication of poor code quality. 
+
+Now if we look at the code of the Courses application from last lesson, in particular CoursesApp, we see that the service() method contains a lot of IF's!  It's true that the code is not too unreadable, but we are falling short of the ideals we set forth in the first lessons.
+
+In this lesson we work to make our code closer to our ideals.  We stop work on the courses application for a while, and we try a new exercise.
+
+This exercise is about a geometry application; we want to be able to compute geometric formulae such as the area of a square, or the volume of a sphere.  And we want to make it modular: adding a new page for a new formula should be a matter of changing only TWO things:
+
+ - create a new class for the page 
+ - change the construction code in GeometryServlet, method service().
+
+ 
  
 == Exercise ==
+
+Read the code in GeometryApp, method service().  See how much simpler it is?  We shifted a lot of complexity in the list of page components, which is built in the GeometryServlet application.  
+
+=== Fix the crash ===
+
+Run the application.  It will crash.  Your first task is to fix it.  When you are done, you should be able to see 
+
+a) the welcome page at url http://localhost:8080/
+b) the square area page at url http://localhost:8080/geo/square-area
+c) the triangle area page at url http://localhost:8080/geo/triangle-area
+d) the sphere volume page at url http://localhost:8080/geo/sphere-volume
+
+=== Fix navigation ===
+
+You will notice that our page says "Navigation should be here".  Fix it by providing a list of links to all the pages that are available.  You may have to add a new method to the PageComponent interface, to make it return the preferred url at which the page will respond.
+
+=== Complete the other pages ===
+
+"Area of a triangle" and "Volume of a sphere" are not completed.  Implement them.
+
+=== Have fun! ===
+
+Change the list of pages.  Add something of your invention.  See how easy it is to change the structure of this web application?
 

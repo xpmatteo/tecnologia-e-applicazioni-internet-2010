@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="courses" default="war" basedir=".">
+<project name="geometry" default="war" basedir=".">
 
     <property name="build.dir"      location="target" />
     <property name="build.prod.dir" location="${build.dir}/prod"/>
@@ -9,7 +9,7 @@
     <property name="test.dir"       location="src/test/java"/>
     <property name="lib.dir"        location="lib" />
     <property name="test.lib.dir"   location="lib/test" />
-    <property name="war.file"       location="${build.dir}/courses.war"/>
+    <property name="war.file"       location="${build.dir}/geometry.war"/>
     <property name="config.dir"     location="config" />
     <property name="legoviews.dir"  location="../LegoViews" />
 

@@ -20,9 +20,10 @@ public class GeometryApplication {
 		for (PageComponent component : components) {
 			if (component.wantsToHandle(request)) {
 				renderHtml(response, component);
-				break;
+				return;
 			}
 		}		
+		response.sendError(404);
 	}
 
 	private void renderHtml(HttpServletResponse response, PageComponent component) throws IOException {

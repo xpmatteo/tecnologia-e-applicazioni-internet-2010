@@ -6,10 +6,10 @@ set ANT_HOME=..\apache-ant-1.7.1
 
 call ..\apache-ant-1.7.1\bin\ant war
 
-if not exist target/courses.war (
+if not exist target/geometry.war (
   goto end
 )
 
-java -jar lib/winstone-0.9.10.jar --warfile target/courses.war
+java -jar lib/winstone-0.9.10.jar --warfile target/geometry.war
 
 :end

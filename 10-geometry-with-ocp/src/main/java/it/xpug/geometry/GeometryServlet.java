@@ -15,6 +15,7 @@ public class GeometryServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<PageComponent> pages = new ArrayList<PageComponent>();
 
+		pages.add(new WelcomePage());
 		pages.add(new SquareAreaPage(new SquareAreaCalculator(), request.getParameterMap()));
 		pages.add(new TriangleAreaPage());
 		pages.add(new SphereVolumePage());
